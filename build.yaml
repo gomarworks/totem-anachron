@@ -1,0 +1,46 @@
+# This file configures the GitHub Actions workflow for building ZMK firmware.
+# See https://zmk.dev/docs/development/build-flash for more information.
+
+# The `include` section lists the keyboard configurations to build.
+# Each entry should be a path to a keyboard configuration directory.
+# The path should be relative to the root of the repository.
+include:
+  - config/totem.keymap
+
+# The `exclude` section lists keyboard configurations to exclude from the build.
+# Each entry should be a path to a keyboard configuration directory.
+# The path should be relative to the root of the repository.
+exclude:
+  - config/totem.keymap
+
+# The `keyboard` section specifies the keyboard to build.
+# This should be the name of the keyboard as defined in the ZMK repository.
+keyboard: totem
+
+# The `shield` section specifies the shield to build.
+# This should be the name of the shield as defined in the ZMK repository.
+shield: totem
+
+# The `board` section specifies the board to build.
+# This should be the name of the board as defined in the ZMK repository.
+board: xiao_ble
+
+# The `split` section specifies whether the keyboard is split.
+# This should be `true` for split keyboards and `false` for non-split keyboards.
+split: true
+
+# The `side` section specifies which side of the keyboard to build.
+# This should be `left` or `right` for split keyboards.
+side: left
+
+# The `build` section specifies the build configuration.
+# This should be a list of build configurations to use.
+build:
+  - name: totem_left
+    board: xiao_ble
+    shield: totem
+    side: left
+  - name: totem_right
+    board: xiao_ble
+    shield: totem
+    side: right 

@@ -1,0 +1,68 @@
+#include <dt-bindings/zmk/keys.h>
+
+ZMK_BEHAVIOR(leader, leader_key,
+    bindings = <&leader_key>;
+    timeout-ms = <1000>;
+    require-prior-idle-ms = <150>;
+    #binding-cells = <1>;
+)
+
+ZMK_BEHAVIOR(leader_seq, leader_key,
+    bindings = <&leader_key>;
+    timeout-ms = <1000>;
+    require-prior-idle-ms = <150>;
+    #binding-cells = <1>;
+)
+
+/* Leader key sequences */
+ZMK_LEADER(leader_quit, leader, 0, &kp LC(Q))
+ZMK_LEADER(leader_save, leader, 0, &kp LC(S))
+ZMK_LEADER(leader_save_as, leader, 0, &kp LC(LS(S)))
+ZMK_LEADER(leader_new, leader, 0, &kp LC(N))
+ZMK_LEADER(leader_open, leader, 0, &kp LC(O))
+ZMK_LEADER(leader_close, leader, 0, &kp LC(W))
+ZMK_LEADER(leader_undo, leader, 0, &kp LC(Z))
+ZMK_LEADER(leader_redo, leader, 0, &kp LC(Y))
+ZMK_LEADER(leader_cut, leader, 0, &kp LC(X))
+ZMK_LEADER(leader_copy, leader, 0, &kp LC(C))
+ZMK_LEADER(leader_paste, leader, 0, &kp LC(V))
+ZMK_LEADER(leader_select_all, leader, 0, &kp LC(A))
+ZMK_LEADER(leader_find, leader, 0, &kp LC(F))
+ZMK_LEADER(leader_replace, leader, 0, &kp LC(H))
+ZMK_LEADER(leader_zoom_in, leader, 0, &kp LC(PLUS))
+ZMK_LEADER(leader_zoom_out, leader, 0, &kp LC(MINUS))
+ZMK_LEADER(leader_zoom_reset, leader, 0, &kp LC(N0))
+ZMK_LEADER(leader_toggle_comment, leader, 0, &kp LC(SLASH))
+ZMK_LEADER(leader_toggle_sidebar, leader, 0, &kp LC(B))
+ZMK_LEADER(leader_toggle_terminal, leader, 0, &kp LC(GRAVE))
+ZMK_LEADER(leader_toggle_fullscreen, leader, 0, &kp LC(F11))
+ZMK_LEADER(leader_toggle_minimap, leader, 0, &kp LC(M))
+ZMK_LEADER(leader_toggle_word_wrap, leader, 0, &kp LC(Z))
+ZMK_LEADER(leader_toggle_line_numbers, leader, 0, &kp LC(L))
+ZMK_LEADER(leader_toggle_folding, leader, 0, &kp LC(K))
+ZMK_LEADER(leader_toggle_whitespace, leader, 0, &kp LC(W))
+ZMK_LEADER(leader_toggle_rulers, leader, 0, &kp LC(R))
+ZMK_LEADER(leader_toggle_statusbar, leader, 0, &kp LC(J))
+ZMK_LEADER(leader_toggle_activitybar, leader, 0, &kp LC(B))
+ZMK_LEADER(leader_toggle_sidepanel, leader, 0, &kp LC(P))
+ZMK_LEADER(leader_toggle_panel, leader, 0, &kp LC(J))
+ZMK_LEADER(leader_toggle_zen_mode, leader, 0, &kp LC(K))
+ZMK_LEADER(leader_toggle_centered_layout, leader, 0, &kp LC(K))
+ZMK_LEADER(leader_toggle_breadcrumbs, leader, 0, &kp LC(K))
+ZMK_LEADER(leader_toggle_minimap, leader, 0, &kp LC(M))
+ZMK_LEADER(leader_toggle_sidebar, leader, 0, &kp LC(B))
+ZMK_LEADER(leader_toggle_terminal, leader, 0, &kp LC(GRAVE))
+ZMK_LEADER(leader_toggle_fullscreen, leader, 0, &kp LC(F11))
+ZMK_LEADER(leader_toggle_minimap, leader, 0, &kp LC(M))
+ZMK_LEADER(leader_toggle_word_wrap, leader, 0, &kp LC(Z))
+ZMK_LEADER(leader_toggle_line_numbers, leader, 0, &kp LC(L))
+ZMK_LEADER(leader_toggle_folding, leader, 0, &kp LC(K))
+ZMK_LEADER(leader_toggle_whitespace, leader, 0, &kp LC(W))
+ZMK_LEADER(leader_toggle_rulers, leader, 0, &kp LC(R))
+ZMK_LEADER(leader_toggle_statusbar, leader, 0, &kp LC(J))
+ZMK_LEADER(leader_toggle_activitybar, leader, 0, &kp LC(B))
+ZMK_LEADER(leader_toggle_sidepanel, leader, 0, &kp LC(P))
+ZMK_LEADER(leader_toggle_panel, leader, 0, &kp LC(J))
+ZMK_LEADER(leader_toggle_zen_mode, leader, 0, &kp LC(K))
+ZMK_LEADER(leader_toggle_centered_layout, leader, 0, &kp LC(K))
+ZMK_LEADER(leader_toggle_breadcrumbs, leader, 0, &kp LC(K)) 

@@ -1,0 +1,49 @@
+#include <dt-bindings/zmk/keys.h>
+
+/* Horizontal combos for left hand */
+#define COMBO_TERM_FAST 20
+#define COMBO_TERM_SLOW 40
+#define COMBO_IDLE_FAST 150
+#define COMBO_IDLE_SLOW 300
+
+/* Horizontal combos for left hand */
+ZMK_COMBO(combo_esc, &kp ESC, LT1 LT2, COMBO_TERM_FAST)
+ZMK_COMBO(combo_mouse, &smart_mouse, LT2 LT3, COMBO_TERM_FAST)
+ZMK_COMBO(combo_tab, &kp TAB, LT3 LT4, COMBO_TERM_FAST)
+ZMK_COMBO(combo_bs, &bs_del, LM1 LM2, COMBO_TERM_FAST)
+ZMK_COMBO(combo_del, &kp DEL, LM2 LM3, COMBO_TERM_FAST)
+ZMK_COMBO(combo_enter, &kp RET, LM3 LM4, COMBO_TERM_FAST)
+ZMK_COMBO(combo_copy, &copy_cut, LB1 LB2, COMBO_TERM_FAST)
+ZMK_COMBO(combo_cut, &kp LC(X), LB2 LB3, COMBO_TERM_FAST)
+ZMK_COMBO(combo_paste, &kp LC(V), LB3 LB4, COMBO_TERM_FAST)
+
+/* Horizontal combos for right hand */
+ZMK_COMBO(combo_quote, &kp SQT, RT1 RT2, COMBO_TERM_FAST)
+ZMK_COMBO(combo_leader, &leader, RT2 RT3, COMBO_TERM_FAST)
+ZMK_COMBO(combo_leader_sft, &leader_sft, RT3 RT4, COMBO_TERM_FAST)
+ZMK_COMBO(combo_undo, &kp LC(Z), RM1 RM2, COMBO_TERM_FAST)
+ZMK_COMBO(combo_redo, &kp LC(Y), RM2 RM3, COMBO_TERM_FAST)
+ZMK_COMBO(combo_save, &kp LC(S), RM3 RM4, COMBO_TERM_FAST)
+ZMK_COMBO(combo_find, &kp LC(F), RB1 RB2, COMBO_TERM_FAST)
+ZMK_COMBO(combo_replace, &kp LC(H), RB2 RB3, COMBO_TERM_FAST)
+ZMK_COMBO(combo_select_all, &kp LC(A), RB3 RB4, COMBO_TERM_FAST)
+
+/* Vertical combos for left hand */
+ZMK_COMBO(combo_at, &kp AT, LT1 LM1, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_hash, &kp HASH, LT2 LM2, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_dollar, &kp DOLLAR, LT3 LM3, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_percent, &kp PRCNT, LT4 LM4, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_ampersand, &kp AMPS, LM1 LB1, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_star, &kp STAR, LM2 LB2, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_plus, &kp PLUS, LM3 LB3, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_minus, &kp MINUS, LM4 LB4, COMBO_TERM_SLOW)
+
+/* Vertical combos for right hand */
+ZMK_COMBO(combo_caret, &kp CARET, RT1 RM1, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_plus, &kp PLUS, RT2 RM2, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_minus, &kp MINUS, RT3 RM3, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_equal, &kp EQUAL, RT4 RM4, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_underscore, &kp UNDER, RM1 RB1, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_question, &kp QMARK, RM2 RB2, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_exclamation, &kp EXCL, RM3 RB3, COMBO_TERM_SLOW)
+ZMK_COMBO(combo_slash, &kp FSLH, RM4 RB4, COMBO_TERM_SLOW) 

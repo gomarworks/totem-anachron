@@ -1,0 +1,74 @@
+#include <dt-bindings/zmk/keys.h>
+
+/* Mouse key bindings */
+#define U_MS_U &mkp MOVE_UP
+#define U_MS_D &mkp MOVE_DOWN
+#define U_MS_L &mkp MOVE_LEFT
+#define U_MS_R &mkp MOVE_RIGHT
+#define U_WH_U &mwh MOVE_UP
+#define U_WH_D &mwh MOVE_DOWN
+#define U_WH_L &mwh MOVE_LEFT
+#define U_WH_R &mwh MOVE_RIGHT
+
+/* Mouse button bindings */
+#define U_BTN1 &mkp LCLK
+#define U_BTN2 &mkp RCLK
+#define U_BTN3 &mkp MCLK
+#define U_BTN4 &mkp BTN4
+#define U_BTN5 &mkp BTN5
+
+/* Mouse wheel bindings */
+#define U_WH_UP &mwh MOVE_UP
+#define U_WH_DN &mwh MOVE_DOWN
+#define U_WH_LT &mwh MOVE_LEFT
+#define U_WH_RT &mwh MOVE_RIGHT
+
+/* Mouse acceleration */
+#define U_ACC0 &maccel 0
+#define U_ACC1 &maccel 1
+#define U_ACC2 &maccel 2
+
+/* Mouse scroll acceleration */
+#define U_WH_ACC0 &mwh_accel 0
+#define U_WH_ACC1 &mwh_accel 1
+#define U_WH_ACC2 &mwh_accel 2
+
+/* Mouse scroll speed */
+#define U_WH_SPD0 &mwh_speed 0
+#define U_WH_SPD1 &mwh_speed 1
+#define U_WH_SPD2 &mwh_speed 2
+
+/* Mouse scroll mode */
+#define U_WH_MODE0 &mwh_mode 0
+#define U_WH_MODE1 &mwh_mode 1
+#define U_WH_MODE2 &mwh_mode 2
+
+/* Mouse scroll direction */
+#define U_WH_DIR0 &mwh_dir 0
+#define U_WH_DIR1 &mwh_dir 1
+#define U_WH_DIR2 &mwh_dir 2
+
+/* Mouse scroll button */
+#define U_WH_BTN0 &mwh_btn 0
+#define U_WH_BTN1 &mwh_btn 1
+#define U_WH_BTN2 &mwh_btn 2
+
+/* Mouse scroll button mode */
+#define U_WH_BTN_MODE0 &mwh_btn_mode 0
+#define U_WH_BTN_MODE1 &mwh_btn_mode 1
+#define U_WH_BTN_MODE2 &mwh_btn_mode 2
+
+/* Mouse scroll button direction */
+#define U_WH_BTN_DIR0 &mwh_btn_dir 0
+#define U_WH_BTN_DIR1 &mwh_btn_dir 1
+#define U_WH_BTN_DIR2 &mwh_btn_dir 2
+
+/* Mouse scroll button speed */
+#define U_WH_BTN_SPD0 &mwh_btn_speed 0
+#define U_WH_BTN_SPD1 &mwh_btn_speed 1
+#define U_WH_BTN_SPD2 &mwh_btn_speed 2
+
+/* Mouse scroll button acceleration */
+#define U_WH_BTN_ACC0 &mwh_btn_accel 0
+#define U_WH_BTN_ACC1 &mwh_btn_accel 1
+#define U_WH_BTN_ACC2 &mwh_btn_accel 2 
