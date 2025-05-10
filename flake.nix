@@ -58,8 +58,8 @@
                 mkdir -p "$BUILD_DIR"
                 
                 # Set up Zephyr SDK environment
-                export ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
-                export GNUARMEMB_TOOLCHAIN_PATH="${pkgs.gcc-arm-embedded}"
+                export ZEPHYR_TOOLCHAIN_VARIANT="zephyr"
+                export ZEPHYR_SDK_INSTALL_DIR="${zephyrEnv}/"
                 
                 # Clone and set up ZMK
                 git clone https://github.com/theol0403/zmk.git "$BUILD_DIR/zmk"
@@ -84,8 +84,8 @@
                 
                 # Copy keypos definitions
                 mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def"
-                cp config/boards/shields/totem/keypos_36keys.h "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/"
-                chmod u+w "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/keypos_36keys.h"
+                cp config/boards/shields/totem/keypos_38keys.h "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/"
+                chmod u+w "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/keypos_38keys.h"
                 
                 # Copy dynamic macros header
                 mkdir -p "$BUILD_DIR/zmk/app/include/dt-bindings/zmk"
