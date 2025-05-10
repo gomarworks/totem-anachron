@@ -1,0 +1,8 @@
+#pragma once
+
+#define DYNAMIC_MACRO_DRIVER_LABEL dynamic_macro_driver
+#define DYNAMIC_MACRO_DRIVER_NODE DT_DRV_INST(0)
+
+#define DYNAMIC_MACRO_DRIVER DT_DRV_COMPAT
+#define DYNAMIC_MACRO_DRIVER_LABEL dynamic_macro_driver
+#define DYNAMIC_MACRO_DRIVER_NODE DT_DRV_INST(0) 

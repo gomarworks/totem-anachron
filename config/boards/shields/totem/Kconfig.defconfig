@@ -1,13 +1,26 @@
 # Copyright (c) 2022 The ZMK Contributors
 # SPDX-License-Identifier: MIT
 
+config SHIELD_TOTEM_LEFT
+    def_bool $(shields_list_contains,totem_left)
+
 if SHIELD_TOTEM_LEFT
 
 config ZMK_KEYBOARD_NAME
-    default "TOTEM"
+    default "Totem Left"
     
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
+
+endif
+
+config SHIELD_TOTEM_RIGHT
+    def_bool $(shields_list_contains,totem_right)
+
+if SHIELD_TOTEM_RIGHT
+
+config ZMK_KEYBOARD_NAME
+    default "Totem Right"
 
 endif
 
@@ -17,3 +30,7 @@ config ZMK_SPLIT
     default y
 
 endif
+
+# Enable dynamic macros
+config ZMK_DYNAMIC_MACROS
+    default y

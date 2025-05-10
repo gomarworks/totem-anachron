@@ -54,20 +54,33 @@
               mkdir -p "$BUILD_DIR"
               
               # Set up Zephyr SDK environment
-              export ZEPHYR_SDK_INSTALL_DIR="${zephyrEnv}"
-              export ZEPHYR_TOOLCHAIN_VARIANT="zephyr"
-              export ZEPHYR_SDK_INSTALL_DIR="${zephyrEnv}"
+              export ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
+              export GNUARMEMB_TOOLCHAIN_PATH="${pkgs.gcc-arm-embedded}"
               
-              # Clone ZMK if it doesn't exist in build directory
-              if [ ! -d "$BUILD_DIR/zmk" ]; then
-                git clone https://github.com/theol0403/zmk.git "$BUILD_DIR/zmk"
-              fi
+              # Clean up any existing ZMK directory and set permissions
+              rm -rf "$BUILD_DIR/zmk"
+              
+              # Clone ZMK repository
+              git clone https://github.com/theol0403/zmk.git "$BUILD_DIR/zmk"
+              chmod -R u+w "$BUILD_DIR/zmk"
               export ZMK_SRC_DIR="$BUILD_DIR/zmk/app"
               
               # Copy our shield files to ZMK workspace
-              mkdir -p $HOME/.zmk-build/zmk/app/boards/shields/totem
-              cp -r config/boards/shields/totem/* $HOME/.zmk-build/zmk/app/boards/shields/totem/
-
+              mkdir -p "$BUILD_DIR/zmk/app/boards/shields/totem"
+              cp -r config/boards/shields/totem/* "$BUILD_DIR/zmk/app/boards/shields/totem/"
+              
+              # Copy zmk-nodefree-config files to ZMK workspace
+              mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config"
+              cp -r "$ZMK_NODEFREE_CONFIG/include/zmk-helpers"/* "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/"
+              
+              # Copy keypos_36keys.h to the correct location
+              mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def"
+              cp config/boards/shields/totem/keypos_36keys.h "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/"
+              
+              # Copy dynamic-macros.h to the correct location
+              mkdir -p "$BUILD_DIR/zmk/app/include/dt-bindings/zmk"
+              cp config/boards/shields/totem/dynamic-macros.h "$BUILD_DIR/zmk/app/include/dt-bindings/zmk/"
+              
               # Initialize west workspace if it doesn't exist
               if [ ! -d "$BUILD_DIR/zmk/.west" ]; then
                 echo "Initializing west workspace..."
@@ -108,7 +121,7 @@
                 echo -e "  \033[1;36mRight:\033[0m $BUILD_DIR/firmware/totem_right.uf2"
               }
 
-              # Show welcome message with build command
+              # Show welcome message
               echo -e "\n\033[1;32m=== Welcome to AnachronShell! ===\033[0m"
               echo -e "\n\033[1;33mTo build your split keyboard firmware:\033[0m"
               echo -e "  \033[1;36mRun:\033[0m build_split_keyboard"
