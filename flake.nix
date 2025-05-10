@@ -51,44 +51,55 @@
               
               # Set up build directory in user's home
               export BUILD_DIR="$HOME/.zmk-build"
-              mkdir -p "$BUILD_DIR"
               
-              # Set up Zephyr SDK environment
-              export ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
-              export GNUARMEMB_TOOLCHAIN_PATH="${pkgs.gcc-arm-embedded}"
-              
-              # Clean up and recreate ZMK directory with proper permissions
-              rm -rf "$BUILD_DIR/zmk"
-              git clone https://github.com/theol0403/zmk.git "$BUILD_DIR/zmk"
-              chmod -R u+w "$BUILD_DIR/zmk"
-              export ZMK_SRC_DIR="$BUILD_DIR/zmk/app"
-              
-              # Initialize west workspace first
-              cd "$BUILD_DIR/zmk"
-              west init -l app
-              west update
-              cd - > /dev/null
-              
-              # Now copy our files with proper permissions
-              mkdir -p "$BUILD_DIR/zmk/app/boards/shields/totem"
-              cp -r config/boards/shields/totem/* "$BUILD_DIR/zmk/app/boards/shields/totem/"
-              chmod -R u+w "$BUILD_DIR/zmk/app/boards/shields/totem"
-              
-              mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config"
-              cp -r "$ZMK_NODEFREE_CONFIG/include/zmk-helpers"/* "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/"
-              chmod -R u+w "$BUILD_DIR/zmk/app/include/zmk-nodefree-config"
-              
-              mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def"
-              cp config/boards/shields/totem/keypos_36keys.h "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/"
-              chmod u+w "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/keypos_36keys.h"
-              
-              mkdir -p "$BUILD_DIR/zmk/app/include/dt-bindings/zmk"
-              cp config/boards/shields/totem/dynamic-macros.h "$BUILD_DIR/zmk/app/include/dt-bindings/zmk/"
-              chmod u+w "$BUILD_DIR/zmk/app/include/dt-bindings/zmk/dynamic-macros.h"
-              
-              # Update west workspace one final time
-              cd "$BUILD_DIR/zmk" && west update
-              cd - > /dev/null
+              # Only set up ZMK if it hasn't been done before
+              if [ ! -d "$BUILD_DIR/zmk" ]; then
+                echo "First time setup: Initializing ZMK..."
+                mkdir -p "$BUILD_DIR"
+                
+                # Set up Zephyr SDK environment
+                export ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
+                export GNUARMEMB_TOOLCHAIN_PATH="${pkgs.gcc-arm-embedded}"
+                
+                # Clone and set up ZMK
+                git clone https://github.com/theol0403/zmk.git "$BUILD_DIR/zmk"
+                chmod -R u+w "$BUILD_DIR/zmk"
+                export ZMK_SRC_DIR="$BUILD_DIR/zmk/app"
+                
+                # Initialize west workspace
+                cd "$BUILD_DIR/zmk"
+                west init -l app
+                west update
+                cd - > /dev/null
+                
+                # Set up our files
+                mkdir -p "$BUILD_DIR/zmk/app/boards/shields/totem"
+                cp -r config/boards/shields/totem/* "$BUILD_DIR/zmk/app/boards/shields/totem/"
+                chmod -R u+w "$BUILD_DIR/zmk/app/boards/shields/totem"
+                
+                # Set up zmk-nodefree-config includes
+                mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config"
+                cp -r "$ZMK_NODEFREE_CONFIG/include/zmk-helpers"/* "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/"
+                chmod -R u+w "$BUILD_DIR/zmk/app/include/zmk-nodefree-config"
+                
+                # Copy keypos definitions
+                mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def"
+                cp config/boards/shields/totem/keypos_36keys.h "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/"
+                chmod u+w "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/keypos_36keys.h"
+                
+                # Copy dynamic macros header
+                mkdir -p "$BUILD_DIR/zmk/app/include/dt-bindings/zmk"
+                cp config/boards/shields/totem/dynamic-macros.h "$BUILD_DIR/zmk/app/include/dt-bindings/zmk/"
+                chmod u+w "$BUILD_DIR/zmk/app/include/dt-bindings/zmk/dynamic-macros.h"
+                
+                # Create symlinks for backward compatibility
+                ln -sf "$BUILD_DIR/zmk/app/include/zmk-nodefree-config" "$BUILD_DIR/zmk/app/include/zmk-nodefree-config"
+                ln -sf "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def" "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def"
+                
+                echo "First time setup complete!"
+              else
+                echo "ZMK already set up, skipping initialization..."
+              fi
               
               # Custom prompt
               export PS1="\[\033[1;32m\]AnachronShell\[\033[0m\]@\[\033[1;34m\]\h\[\033[0m\]:\[\033[1;33m\]\w\[\033[0m\]\$ "

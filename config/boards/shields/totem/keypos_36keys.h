@@ -6,48 +6,42 @@
 #define LT2 2
 #define LT3 3
 #define LT4 4
-#define LT5 5
 
-#define LM0 6
-#define LM1 7
-#define LM2 8
-#define LM3 9
-#define LM4 10
-#define LM5 11
+#define LM0 5
+#define LM1 6
+#define LM2 7
+#define LM3 8
+#define LM4 9
 
-#define LB0 12
-#define LB1 13
-#define LB2 14
-#define LB3 15
-#define LB4 16
-#define LB5 17
+#define LB0 10
+#define LB1 11
+#define LB2 12
+#define LB3 13
+#define LB4 14
 
 // Right hand
-#define RT0 18
-#define RT1 19
-#define RT2 20
-#define RT3 21
-#define RT4 22
-#define RT5 23
+#define RT0 15
+#define RT1 16
+#define RT2 17
+#define RT3 18
+#define RT4 19
 
-#define RM0 24
-#define RM1 25
-#define RM2 26
-#define RM3 27
-#define RM4 28
-#define RM5 29
+#define RM0 20
+#define RM1 21
+#define RM2 22
+#define RM3 23
+#define RM4 24
 
-#define RB0 30
-#define RB1 31
-#define RB2 32
-#define RB3 33
-#define RB4 34
-#define RB5 35
+#define RB0 25
+#define RB1 26
+#define RB2 27
+#define RB3 28
+#define RB4 29
 
 // Thumbs
-#define LH0 36
-#define LH1 37
-#define LH2 38
-#define RH0 39
-#define RH1 40
-#define RH2 41 
+#define LH0 30
+#define LH1 31
+#define LH2 32
+#define RH0 33
+#define RH1 34
+#define RH2 35 
