@@ -57,39 +57,36 @@
               export ZEPHYR_TOOLCHAIN_VARIANT="gnuarmemb"
               export GNUARMEMB_TOOLCHAIN_PATH="${pkgs.gcc-arm-embedded}"
               
-              # Clean up any existing ZMK directory and set permissions
+              # Clean up and recreate ZMK directory with proper permissions
               rm -rf "$BUILD_DIR/zmk"
-              
-              # Clone ZMK repository
               git clone https://github.com/theol0403/zmk.git "$BUILD_DIR/zmk"
               chmod -R u+w "$BUILD_DIR/zmk"
               export ZMK_SRC_DIR="$BUILD_DIR/zmk/app"
               
-              # Copy our shield files to ZMK workspace
+              # Initialize west workspace first
+              cd "$BUILD_DIR/zmk"
+              west init -l app
+              west update
+              cd - > /dev/null
+              
+              # Now copy our files with proper permissions
               mkdir -p "$BUILD_DIR/zmk/app/boards/shields/totem"
               cp -r config/boards/shields/totem/* "$BUILD_DIR/zmk/app/boards/shields/totem/"
+              chmod -R u+w "$BUILD_DIR/zmk/app/boards/shields/totem"
               
-              # Copy zmk-nodefree-config files to ZMK workspace
               mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config"
               cp -r "$ZMK_NODEFREE_CONFIG/include/zmk-helpers"/* "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/"
+              chmod -R u+w "$BUILD_DIR/zmk/app/include/zmk-nodefree-config"
               
-              # Copy keypos_36keys.h to the correct location
               mkdir -p "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def"
               cp config/boards/shields/totem/keypos_36keys.h "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/"
+              chmod u+w "$BUILD_DIR/zmk/app/include/zmk-nodefree-config/keypos_def/keypos_36keys.h"
               
-              # Copy dynamic-macros.h to the correct location
               mkdir -p "$BUILD_DIR/zmk/app/include/dt-bindings/zmk"
               cp config/boards/shields/totem/dynamic-macros.h "$BUILD_DIR/zmk/app/include/dt-bindings/zmk/"
+              chmod u+w "$BUILD_DIR/zmk/app/include/dt-bindings/zmk/dynamic-macros.h"
               
-              # Initialize west workspace if it doesn't exist
-              if [ ! -d "$BUILD_DIR/zmk/.west" ]; then
-                echo "Initializing west workspace..."
-                cd "$BUILD_DIR/zmk" && west init -l app
-                west update
-                cd - > /dev/null
-              fi
-              
-              # Clean and rebuild west workspace
+              # Update west workspace one final time
               cd "$BUILD_DIR/zmk" && west update
               cd - > /dev/null
               
