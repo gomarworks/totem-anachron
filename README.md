@@ -1,60 +1,39 @@
-# Totem Keyboard with Anachron Layout
+# Totem-Anachron Keyboard Firmware
 
-This is an implementation of [theol0403's Anachron layout](https://github.com/theol0403/anachron-zmk-config) for the Totem keyboard. Anachron is a 34-key layout designed for speed and efficiency.
+An experimental keyboard firmware that brings the advanced features of the Anachron layout to the Totem keyboard hardware. This project aims to combine the excellent ergonomics of the Totem with the sophisticated key behaviors and layout optimizations from Anachron.
 
-## Features
+## The Story
 
-- Base layer using the Graphite alpha layout
-- Navigation and number pad on NAV layer
-- Symbols and special characters on SYM layer
-- System functions and Bluetooth controls on ADJ layer
-- Smart sticky modifiers and layers
-- Combo-based functionality for quick access
+The Totem keyboard, designed by [GEIGEIGEIST](https://github.com/GEIGEIGEIST/zmk-config-totem), is a 36-key split keyboard known for its comfortable column-staggered layout and clean design. Meanwhile, [theol0403's Anachron](https://github.com/theol0403/anachron-zmk-config) represents a cutting-edge approach to keyboard layouts, featuring advanced behaviors like smart modifiers, conditional layers, and an innovative combo system.
 
-## Layout
+This project attempts to merge these two worlds: taking the Totem's hardware as a foundation and implementing Anachron's sophisticated features. We're using [theol0403's ZMK fork](https://github.com/theol0403/zmk/tree/local) which includes several unmerged features required for the Anachron layout, and [urob's Nix-based build system](https://github.com/urob/zmk-config) for a reproducible development environment.
 
-### Base Layer
-```
-╭─────────────────────┬─────────────────────╮
-│ Q  W  F  P  G      │      J  L  U  Y  ;  │
-│ A  R  S  T  D      │      H  N  E  I  O  │
-│ Z  X  C  V  B      │      K  M  ,  .  /  │
-╰───────╮ TAB SPC RET │ BSPC ╭───────╯
-        ╰─────────────┴─────────╯
-```
+## Key Features
 
-### Navigation Layer (NAV)
-```
-╭─────────────────────┬─────────────────────╮
-│ ESC  BT_CLR UP  =   │ {  }  7  8  9  +   │
-│ SHFT ←     ↓   →   │ [  ]  4  5  6  -   │
-│ _    DEL   PGUP CAPS│ (  )  1  2  3  *   │
-╰───────╮ _   _   ADJ │ 0   ╭───────╯
-        ╰─────────────┴─────────╯
-```
-
-### Symbol Layer (SYM)
-```
-╭─────────────────────┬─────────────────────╮
-│ !  @  #  $  %      │      ^  &  Ü  '  "  │
-│ Á  _  ß  _  _      │ MUTE _  _  _  _  Ó  │
-│ _  _  _  _  _      │      _  _  _  _  _  │
-╰───────╮ _   _   ADJ │ _    ╭───────╯
-        ╰─────────────┴─────────╯
-```
-
-## Credits
-
-- Original Anachron layout by [@theol0403](https://github.com/theol0403)
-- Inspired by [urob](https://github.com/urob), [callum](https://github.com/callum-oakley), and [seniply](https://github.com/seniply)
+- **Smart Layer Management**: Conditional layers that activate based on specific key combinations
+- **Advanced Modifiers**: Sticky keys with balanced hold-tap behaviors
+- **Innovative Combos**: Extensive combo system for efficient key access
+- **Dynamic Macros**: Support for recording and playing back macros
+- **Media Controls**: Dedicated media layer with Bluetooth management
 
 ## Building
 
-1. Make sure you have the ZMK environment set up
-2. Clone this repository
-3. Run `west build -b xiao_ble -- -DSHIELD=totem_left` for the left half
-4. Run `west build -b xiao_ble -- -DSHIELD=totem_right` for the right half
-5. Flash the resulting firmware files to your Totem keyboard
+Simply run:
+```bash
+nix develop
+```
+
+Then build with:
+```bash
+build_split_keyboard
+```
+
+## Acknowledgments
+
+This project wouldn't be possible without the work of:
+- [GEIGEIGEIST](https://github.com/GEIGEIGEIST) for the Totem keyboard design
+- [theol0403](https://github.com/theol0403) for the Anachron layout and features
+- [urob](https://github.com/urob) for the Nix-based build system approach
 
 ## License
 

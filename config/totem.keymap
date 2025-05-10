@@ -14,8 +14,8 @@
 #define ___ &trans
 
 #define BASE 0
-#define NUM 1
-#define SYM 2
+#define NUM  1
+#define SYM  2
 #define MERGE 3
 #define MEDIA 4
 #define NAV  1
@@ -30,9 +30,7 @@
 /* ------------------------ general config ----------------------- */
 // smart-layer config
 &caps_word {  
-    /delete-property/ ignore-modifiers; // mods deactivate, requires PR #1451
-    /delete-property/ ignore-numbers;
-    continue-list = <BACKSPACE ENTER DELETE UNDERSCORE MINUS>;
+    continue-list = <BACKSPACE DELETE UNDERSCORE MINUS>;
 };
 
 // key-repeat config
@@ -149,10 +147,9 @@ ZMK_BEHAVIOR(dyn_macro, dynamic_macro, wait-ms = <10>;)
 /* --------------------------- sticky key behaviors -------------------------- */
 // global config
 &sk { // sticky-key
-    release-after-ms = <3000>;  // release after timeout
-    quick-release;              // no double capitalization when rolling ke
+    release-after-ms = <2000>;
+    quick-release;
     ignore-modifiers;
-    lazy;
 };
 ZMK_BEHAVIOR(sk_no_lazy, sticky_key, // sticky-key without lazy
     bindings = <&kp>;
@@ -161,7 +158,7 @@ ZMK_BEHAVIOR(sk_no_lazy, sticky_key, // sticky-key without lazy
     ignore-modifiers;
 )
 &sl { // sticky-layer 
-    release-after-ms = <500>;  // release after timeout
+    release-after-ms = <2000>;
     // This is useful for enabling a layer and then pressing a bunch of sticky keys without leaving the layer. 
     // However, this breaks tapping sl+control+key because it does not exit the layer.
     // ignore-modifiers;
