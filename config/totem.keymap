@@ -31,10 +31,6 @@
     /delete-property/ ignore-numbers;
     continue-list = <BACKSPACE ENTER DELETE UNDERSCORE MINUS>;
 };
-&num_word { 
-    layers = <NUM>; // requires PR #1441
-    continue-list = <BACKSPACE ENTER DELETE UNDERSCORE MINUS PLUS ASTRK EQUAL FSLH DOT LPAR RPAR HASH DLLR PRCNT CARET LEFT RIGHT UP DOWN>;
-};
 
 // key-repeat config
 &key_repeat {
@@ -47,9 +43,57 @@
     tapping-term-ms = <200>;
 };
 
-ZMK_CONDITIONAL_LAYER(NUM SYM, MERGE)
+ZMK_CONDITIONAL_LAYER(num_sym_merge, NUM SYM, MERGE)
 
 /* ---------------------------- special behaviors --------------------------- */
+// tap: comma | shift + tap: semicolon 
+ZMK_BEHAVIOR(comma_morph, mod_morph,
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+    bindings = <&kp COMMA>, <&kp SEMICOLON>;
+)
+// tap: dot | shift + tap: colon 
+ZMK_BEHAVIOR(dot_morph, mod_morph,
+    bindings = <&kp DOT>, <&kp COLON>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+)
+// tap: qmark | shift + tap: excl
+ZMK_BEHAVIOR(qmark_morph, mod_morph,
+    bindings = <&kp QMARK>, <&kp EXCL>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+)
+
+// tap: space | shift + tap: dot -> space -> sticky shift
+ZMK_BEHAVIOR(spc_morph, mod_morph,
+    bindings = <&kp SPACE>, <&dot_spc>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+)
+ZMK_BEHAVIOR(dot_spc, macro,
+    wait-ms = <5>;
+    tap-ms = <5>;
+    bindings = <&dot_morph_cancel &kp SPACE &sk LSFT>;
+)
+ZMK_BEHAVIOR(dot_morph_cancel, mod_morph,
+    bindings = <&kp DOT>, <&kp DOT>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+)
+
+// shift + number: fn
+ZMK_BEHAVIOR(fn_0, mod_morph, bindings = <&kp N0>, <&kp PSCRN>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_1, mod_morph, bindings = <&kp N1>, <&kp F1>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_2, mod_morph, bindings = <&kp N2>, <&kp F2>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_3, mod_morph, bindings = <&kp N3>, <&kp F3>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_4, mod_morph, bindings = <&kp N4>, <&kp F4>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_5, mod_morph, bindings = <&kp N5>, <&kp F5>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_6, mod_morph, bindings = <&kp N6>, <&kp F6>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_7, mod_morph, bindings = <&kp N7>, <&kp F7>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_8, mod_morph, bindings = <&kp N8>, <&kp F8>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_9, mod_morph, bindings = <&kp N9>, <&kp F9>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_dllr, mod_morph, bindings = <&kp DLLR>, <&kp F10>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_dot, mod_morph, bindings = <&kp DOT>, <&kp F11>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_pcnt, mod_morph, bindings = <&kp PRCNT>, <&kp F12>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_ast, mod_morph, bindings = <&kp ASTRK>, <&kp INSERT>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+ZMK_BEHAVIOR(fn_fslh, mod_morph, bindings = <&kp FSLH>, <&kp CAPS>; mods = <(MOD_LSFT|MOD_RSFT)>;)
+
 // Alt+Tab swapper, requires PR #1366
 ZMK_BEHAVIOR(swapper, tri_state,
     bindings = <&kt LALT>, <&kp TAB>, <&kt LALT>;
@@ -122,7 +166,7 @@ ZMK_BEHAVIOR(sk_no_lazy, sticky_key, // sticky-key without lazy
 
 // all sticky keys are sticky when tapped, but momentary when held. 
 // this allows for rolling layer keys, and accessing modifiers on base, while not getting in the way.
-// this behavior is especially useful for use with a mouse because sticky odifiers don't linger
+// this behavior is especially useful for use with a mouse because sticky modifiers don't linger
 #define STICKY_TAP_MS 200
 
 // tap: sticky-mod | hold: mod
@@ -176,23 +220,12 @@ ZMK_BEHAVIOR(num_dance, tap_dance,
     bindings = <&sl NUM>, <&num_word>, <&tog NUM>; // todo: to or tog?
 )
 
-/* ------------------------------- mod-morphs ------------------------------- */
-// tap: comma | shift + tap: semicolon 
-ZMK_BEHAVIOR(comma_morph, mod_morph,
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-    bindings = <&kp COMMA>, <&kp SEMICOLON>;
-)
-// tap: dot | shift + tap: colon 
-ZMK_BEHAVIOR(dot_morph, mod_morph,
-    bindings = <&kp DOT>, <&kp COLON>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-)
-// tap: qmark | shift + tap: excl
-ZMK_BEHAVIOR(qmark_morph, mod_morph,
-    bindings = <&kp QMARK>, <&kp EXCL>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
+ZMK_BEHAVIOR(num_word, caps_word,
+    layers = <NUM>;
+    continue-list = <BACKSPACE ENTER DELETE UNDERSCORE MINUS PLUS ASTRK EQUAL FSLH DOT LPAR RPAR HASH DLLR PRCNT CARET LEFT RIGHT UP DOWN>;
 )
 
+/* ------------------------------- mod-morphs ------------------------------- */
 // tap: space | shift + tap: dot -> space -> sticky shift
 ZMK_BEHAVIOR(spc_morph, mod_morph,
     bindings = <&kp SPACE>, <&dot_spc>;
@@ -207,23 +240,6 @@ ZMK_BEHAVIOR(dot_morph_cancel, mod_morph,
     bindings = <&kp DOT>, <&kp DOT>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
 )
-
-// shift + number: fn
-ZMK_BEHAVIOR(fn_0, mod_morph, bindings = <&kp N0>, <&kp PSCRN>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_1, mod_morph, bindings = <&kp N1>, <&kp F1>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_2, mod_morph, bindings = <&kp N2>, <&kp F2>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_3, mod_morph, bindings = <&kp N3>, <&kp F3>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_4, mod_morph, bindings = <&kp N4>, <&kp F4>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_5, mod_morph, bindings = <&kp N5>, <&kp F5>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_6, mod_morph, bindings = <&kp N6>, <&kp F6>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_7, mod_morph, bindings = <&kp N7>, <&kp F7>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_8, mod_morph, bindings = <&kp N8>, <&kp F8>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_9, mod_morph, bindings = <&kp N9>, <&kp F9>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_dllr, mod_morph, bindings = <&kp DLLR>, <&kp F10>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_dot, mod_morph, bindings = <&kp DOT>, <&kp F11>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_pcnt, mod_morph, bindings = <&kp PRCNT>, <&kp F12>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_ast, mod_morph, bindings = <&kp ASTRK>, <&kp INSERT>; mods = <(MOD_LSFT|MOD_RSFT)>;)
-ZMK_BEHAVIOR(fn_fslh, mod_morph, bindings = <&kp FSLH>, <&kp CAPS>; mods = <(MOD_LSFT|MOD_RSFT)>;)
 
 // tap: play | shift + tap: record
 ZMK_BEHAVIOR(dyn_macro_morph, mod_morph,
@@ -301,7 +317,7 @@ ZMK_BEHAVIOR(dyn_macro_morph, mod_morph,
 #define COMBO_HOOK global-quick-tap-ms = <50>;
 // combos on every layer
 #define LAYER_COMBO(name, keypos, bindings, layer) ZMK_COMBO(name, bindings, keypos, layer, 50)
-#define GLOBAL_COMBO(name, keypos, bindings) LAYER_COMBO(name, keypos, bindings, ALL)
+#define GLOBAL_COMBO(name, keypos, bindings) LAYER_COMBO(name, bindings, keypos, ALL)
 // GLOBAL_COMBO(bksp, RB1 RB2, &kp BSPC)
 // GLOBAL_COMBO(del, RB2 RB3, &kp DEL)
 GLOBAL_COMBO(numl, RB3 RB4, &num_word)

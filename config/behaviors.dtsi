@@ -1,0 +1,84 @@
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/dynamic-macros.h>
+
+// tap: sticky-num | hold: num | double-tap: num-word | triple-tap: num-lock
+#define SMRT_NUM &smrt_num NUM NUM
+ZMK_BEHAVIOR(smrt_num, hold_tap,
+    flavor = "hold-preferred"; 
+    tapping-term-ms = <STICKY_TAP_MS>; 
+    bindings = <&mo>, <&num_dance>; 
+) 
+
+ZMK_BEHAVIOR(num_word, caps_word,
+    layers = <NUM>;
+    continue-list = <BACKSPACE ENTER DELETE UNDERSCORE MINUS PLUS ASTRK EQUAL FSLH DOT LPAR RPAR HASH DLLR PRCNT CARET LEFT RIGHT UP DOWN>;
+)
+
+ZMK_BEHAVIOR(num_dance, tap_dance,
+    tapping-term-ms = <300>; 
+    bindings = <&sl NUM>, <&num_word>, <&tog NUM>; // todo: to or tog?
+)
+
+// tap: sticky-layer | hold: layer
+#define SMRT_SYM &smrt_layer SYM SYM
+#define SMRT_MED &smrt_layer MEDIA MEDIA
+ZMK_BEHAVIOR(smrt_layer, hold_tap,
+    flavor = "hold-preferred"; // in most cases we want to avoid taps
+    tapping-term-ms = <STICKY_TAP_MS>; 
+    bindings = <&mo>, <&sl>; 
+) 
+
+// tap: sticky-shift | hold: shift | shift + tap / double-tap: caps-word 
+#define SK_SHFT &sk_shft LSFT LSFT
+ZMK_BEHAVIOR(sk_shft, hold_tap,
+    flavor = "balanced"; 
+    tapping-term-ms = <STICKY_TAP_MS>; 
+    bindings = <&kp>, <&smrt_shft_morph>; 
+    hold-while-undecided;
+) 
+
+ZMK_BEHAVIOR(smrt_shft_morph, mod_morph,
+    mods = <(MOD_LSFT)>; // shift + tap: caps word
+    bindings = <&sk_no_lazy LSFT>, <&caps_word>; 
+) 
+
+// tap: sticky-mod | hold: mod
+#define SK(mod) &sk_mod mod mod
+ZMK_BEHAVIOR(sk_mod, hold_tap,
+    flavor = "balanced"; // balanced because we want to consider as tap when rolling
+    tapping-term-ms = <STICKY_TAP_MS>; 
+    bindings = <&kp>, <&sk>; 
+    hold-while-undecided; // requires pr
+)
+
+// for GUI/ALT, we don't want to trigger a tap, so we disable hold while undecided
+#define SK_LGUI &sk_mod_gui LGUI LGUI 
+#define SK_LALT &sk_mod_gui LALT LALT 
+ZMK_BEHAVIOR(sk_mod_gui, hold_tap,
+    flavor = "balanced"; // balanced because we want to consider as tap when rolling
+    tapping-term-ms = <STICKY_TAP_MS>; 
+    bindings = <&kp>, <&sk>; 
+)
+
+ZMK_BEHAVIOR(sk_no_lazy, sticky_key, // sticky-key without lazy
+    bindings = <&kp>;
+    release-after-ms = <3000>;  // release after timeout
+    quick-release;              // no double capitalization when rolling keys
+    ignore-modifiers;
+)
+
+// Alt+Tab swapper, requires PR #1366
+ZMK_BEHAVIOR(swapper, tri_state,
+    bindings = <&kt LALT>, <&kp TAB>, <&kt LALT>;
+    ignored-key-positions = <LM1>; // shift-alt-tab 
+)
+
+// dynamic macros, requires PR #1351
+ZMK_BEHAVIOR(dyn_macro, dynamic_macro, wait-ms = <10>;)
+
+// tap: play | shift + tap: record
+ZMK_BEHAVIOR(dyn_macro_morph, mod_morph,
+    bindings = <&dyn_macro PLAY>, <&dyn_macro RECORD>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+) 

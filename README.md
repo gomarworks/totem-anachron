@@ -1,114 +1,40 @@
-# Totem Anachron Keyboard Configuration
+# Totem-Anachron Keyboard Firmware
 
-This repository contains the ZMK configuration for the Totem keyboard with an Anachron-inspired keymap. The configuration is based on the [Anachron ZMK Config](https://github.com/anachron/zmk-config) and adapted for the Totem keyboard.
+An experimental keyboard firmware that brings the advanced features of the Anachron layout to the Totem keyboard hardware. This project aims to combine the excellent ergonomics of the Totem with the sophisticated key behaviors and layout optimizations from Anachron.
 
-## Features
+## The Story
 
-- Split keyboard configuration for the Totem keyboard
-- Anachron-inspired keymap with homerow mods
-- Multiple layers for navigation, function keys, numbers, and system controls
-- Combo support for common shortcuts
-- Leader key sequences for advanced functionality
-- Mouse emulation support
-- Built-in support for wireless connectivity
+The Totem keyboard, designed by [GEIGEIGEIST](https://github.com/GEIGEIGEIST/zmk-config-totem), is a 36-key split keyboard known for its comfortable column-staggered layout and clean design. Meanwhile, [theol0403's Anachron](https://github.com/theol0403/anachron-zmk-config) represents a cutting-edge approach to keyboard layouts, featuring advanced behaviors like smart modifiers, conditional layers, and an innovative combo system.
 
-## Layers
-
-The keyboard has the following layers:
-
-1. **Base Layer**: Default typing layer with homerow mods
-2. **Nav Layer**: Navigation and editing controls
-3. **Fn Layer**: Function keys and media controls
-4. **Num Layer**: Number pad and symbols
-5. **Sys Layer**: System controls and Bluetooth management
-6. **Mouse Layer**: Mouse emulation
+This project attempts to merge these two worlds: taking the Totem's hardware as a foundation and implementing Anachron's sophisticated features. We're using [theol0403's ZMK fork](https://github.com/theol0403/zmk/tree/local) which includes several unmerged features required for the Anachron layout, and [urob's Nix-based build system](https://github.com/urob/zmk-config) for a reproducible development environment.
 
 ## Key Features
 
-### Homerow Mods
-
-The homerow keys on the left hand are configured as mods when held:
-- A: Left GUI
-- R: Left Alt
-- S: Left Shift
-- T: Left Ctrl
-
-The homerow keys on the right hand are configured as mods when held:
-- N: Right Ctrl
-- E: Right Shift
-- I: Right Alt
-- O: Right GUI
-
-### Combos
-
-The configuration includes various combos for common shortcuts:
-
-- **Horizontal Combos**: Quick access to common editing functions
-- **Vertical Combos**: Access to symbols and special characters
-- **Thumb Combos**: Layer switching and special functions
-
-### Leader Key
-
-The leader key provides access to a wide range of shortcuts and commands. Some examples:
-
-- `leader + q`: Quit application
-- `leader + s`: Save
-- `leader + n`: New file
-- `leader + o`: Open file
-- `leader + w`: Close file
-- `leader + z`: Undo
-- `leader + y`: Redo
-- `leader + x`: Cut
-- `leader + c`: Copy
-- `leader + v`: Paste
-
-### Mouse Emulation
-
-The mouse layer provides full mouse emulation capabilities:
-
-- Arrow keys for mouse movement
-- Mouse buttons (left, right, middle)
-- Mouse wheel scrolling
-- Adjustable mouse speed and acceleration
+- **Smart Layer Management**: Conditional layers that activate based on specific key combinations
+- **Advanced Modifiers**: Sticky keys with balanced hold-tap behaviors
+- **Innovative Combos**: Extensive combo system for efficient key access
+- **Dynamic Macros**: Support for recording and playing back macros
+- **Media Controls**: Dedicated media layer with Bluetooth management
 
 ## Building
 
-To build the firmware:
+Simply run:
+```bash
+nix develop
+```
 
-1. Clone this repository
-2. Initialize the ZMK workspace:
-   ```bash
-   west init -l config
-   west update
-   ```
-3. Build the firmware:
-   ```bash
-   west build -d build/left -p -b xiao_ble -- -DSHIELD=totem_left
-   west build -d build/right -p -b xiao_ble -- -DSHIELD=totem_right
-   ```
+Then build with:
+```bash
+build_split_keyboard
+```
 
-## Flashing
+## Acknowledgments
 
-To flash the firmware to your keyboard:
+This project wouldn't be possible without the work of:
+- [GEIGEIGEIST](https://github.com/GEIGEIGEIST) for the Totem keyboard design
+- [theol0403](https://github.com/theol0403) for the Anachron layout and features
+- [urob](https://github.com/urob) for the Nix-based build system approach
 
-1. Connect your keyboard in bootloader mode
-2. Flash the firmware:
-   ```bash
-   west flash -d build/left
-   west flash -d build/right
-   ```
+## License
 
-## Customization
-
-You can customize the keymap by editing the following files:
-
-- `config/totem.keymap`: Main keymap configuration
-- `config/combos.dtsi`: Combo definitions
-- `config/leader.dtsi`: Leader key sequences
-- `config/mouse.dtsi`: Mouse emulation settings
-
-## Credits
-
-- [Anachron ZMK Config](https://github.com/anachron/zmk-config) for the base keymap design
-- [ZMK Firmware](https://github.com/zmkfirmware/zmk) for the firmware
-- [Totem Keyboard](https://github.com/theol0403/totem) for the keyboard design 
+This project is licensed under the MIT License - see the LICENSE file for details. 
